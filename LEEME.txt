@@ -1,0 +1,120 @@
+=========================
+Generador de Inventario de Imágenes
+=========================
+
+Descripción:
+------------
+
+Este script en Python permite generar un documento de inventario en formato .docx a partir de un directorio que contiene imágenes organizadas 
+en carpetas. Ofrece dos funcionalidades principales:
+1. Renombrar las imágenes automáticamente mediante etiquetas de reconocimiento de objetos utilizando la API de Google Vision.
+2. Crear un documento de inventario con estructura jerárquica, donde los nombres de las carpetas se convierten en secciones y 
+cada imagen se incluye con su nombre y miniatura ajustada al tamaño de los márgenes del documento.
+
+Requisitos:
+-----------
+
+- Python 3.7 o superior
+- pip
+
+Para ejecutar este script, asegúrate de tener los siguientes paquetes instalados:
+- `python-docx`
+- `pillow`
+- `google-cloud-vision`
+
+Si no tienes estos paquetes, el script intentará instalarlos automáticamente al ejecutarse.
+
+Uso:
+----
+
+# Generador de Inventario de Imágenes
+
+Este proyecto permite generar documentos de inventario con imágenes organizadas por carpetas, incluyendo una tabla de contenidos y opciones de personalización.
+
+## Requisitos Previos
+
+- Python 3.7 o superior
+- pip
+
+## Configuración
+
+1. Clonar o descargar el proyecto en tu computadora.
+2. Abrir una terminal y navegar a la carpeta del proyecto.
+3. Crear y activar el entorno virtual:
+   ```bash
+   python -m venv venv
+
+    En Windows: .\venv\Scripts\activate
+    En Unix/Mac: source env/bin/activate
+4. Instalar las dependencias:
+    pip install -r requirements.txt
+
+5. Ejecución: 
+    run.bat <root_folder> <output_doc> <location> <name> <dni> <ref_expediente> --create_doc
+    Ejemplo:
+    ./run.sh "ruta/a/carpeta_imagenes" "inventario-prueba.docx" "Springfield" "Homer J. Simpson" "12345678A" "EXP2024"
+
+
+Guarda el archivo del script como `inventario.py` y ejecuta los siguientes comandos en la terminal para realizar las distintas opciones. 
+
+
+Comandos básicos:
+-----------------
+
+1. **Solo renombrar imágenes:**
+   
+   Este comando renombrará las imágenes en función de las etiquetas obtenidas mediante la API de Google Vision:
+
+   ```bash
+   python inventario.py ruta/de/la/carpeta --rename_images
+
+2. **Solo generar el documento de inventario:**
+    Este comando creará el documento de inventario .docx sin renombrar las imágenes. El archivo se generará con el nombre predeterminado inventario.docx, 
+    o el nombre que especifiques con --output_doc:
+
+    ```bash
+   python inventario.py ruta/de/la/carpeta --create_doc
+
+3. **Renombrar imágenes y generar el documento de inventario:**
+    Este comando ejecuta ambas funcionalidades: renombra las imágenes y genera el documento de inventario:
+   
+    ```bash
+   python inventario.py ruta/de/la/carpeta --rename_images --create_doc
+
+4. **Especificar un nombre de archivo de inventario personalizado:**
+    Puedes especificar un nombre diferente para el documento de inventario utilizando el parámetro --output_doc. 
+    Este nombre será usado para el archivo de salida del documento:
+
+    ```bash
+    python inventario.py ruta/de/la/carpeta --rename_images --create_doc --output_doc "mi_inventario.docx"
+
+
+Parámetros de entrada:
+-----------------
+
+* root_folder: La ruta del directorio raíz que contiene las imágenes. Este parámetro es obligatorio.
+* --rename_images: Añade esta bandera para renombrar las imágenes utilizando Google Vision.
+* --create_doc: Añade esta bandera para generar el documento de inventario en formato .docx.
+* --output_doc: (Opcional) Nombre personalizado para el archivo de inventario generado.
+
+Ejemplo completo:
+-----------------
+
+Si deseas renombrar todas las imágenes en la carpeta /ruta/a/mi/directorio 
+y además crear un archivo de inventario llamado mi_inventario.docx, el comando será:
+
+```bash
+python inventario.py /ruta/a/mi/directorio --rename_images --create_doc --output_doc "mi_inventario.docx"
+
+
+Licencia:
+-----------------
+
+Este script está distribuido bajo la licencia MIT. 
+Consulta el encabezado del archivo pynvent.py para obtener más detalles sobre los términos de la licencia.
+
+
+Autora:
+-----------------
+
+Creado por Alba en 2024. Jeje. Un abrazo y suerte de todo corazón! <3
