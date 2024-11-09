@@ -4,8 +4,8 @@ from pynvent import crear_inventario
 
 def run_inventario():
     # Validar que todos los campos estén completos
-    if not root_folder.get() or not output_doc.get() or not location.get() or not name.get() or not dni.get() or not ref_expediente.get():
-        messagebox.showerror("Error", "Por favor completa todos los campos.")
+    if not root_folder.get() or not output_doc.get():
+        messagebox.showerror("Error", "Por favor, introduce al menos la carpeta con las imágenes y el nombre del documento.")
         return
 
     # Llamar a la función principal
@@ -21,7 +21,7 @@ def run_inventario():
             rename_images=rename_images.get(),
             create_doc=True
         )
-        messagebox.showinfo("Éxito", "Inventario generado exitosamente.")
+        messagebox.showinfo("Éxito", "Inventario generado exitosamente.\nGuardado en pynventario/documentos.")
         window.destroy()  # Cierra la ventana principal
     except Exception as e:
         messagebox.showerror("Error", f"Ha ocurrido un error: {e}")
@@ -44,15 +44,14 @@ ref_expediente = tk.StringVar()
 rename_images = tk.BooleanVar()
 
 # Crear los campos de entrada y botones
-tk.Label(window, text="Carpeta raíz de imágenes:").pack(pady=5)
+tk.Label(window, text="Carpeta con las imágenes:").pack(pady=5)
 tk.Entry(window, textvariable=root_folder, width=40).pack()
 tk.Button(window, text="Seleccionar carpeta", command=lambda: root_folder.set(filedialog.askdirectory())).pack()
 
-tk.Label(window, text="Archivo de salida (.docx):").pack(pady=5)
+tk.Label(window, text="Nombre del archivo con el inventario (.docx guardado en documentos/):").pack(pady=5)
 tk.Entry(window, textvariable=output_doc, width=40).pack()
-tk.Button(window, text="Seleccionar archivo", command=lambda: output_doc.set(filedialog.asksaveasfilename(defaultextension=".docx", filetypes=[("Word Document", "*.docx")]))).pack()
 
-tk.Label(window, text="Ubicación:").pack(pady=5)
+tk.Label(window, text="Localidad:").pack(pady=5)
 tk.Entry(window, textvariable=location, width=40).pack()
 
 tk.Label(window, text="Nombre de la persona:").pack(pady=5)
@@ -64,7 +63,7 @@ tk.Entry(window, textvariable=dni, width=40).pack()
 tk.Label(window, text="Referencia de expediente:").pack(pady=5)
 tk.Entry(window, textvariable=ref_expediente, width=40).pack()
 
-tk.Checkbutton(window, text="Renombrar imágenes usando Google Vision", variable=rename_images).pack(pady=5)
+#tk.Checkbutton(window, text="Renombrar imágenes usando Google Vision", variable=rename_images).pack(pady=5)
 
 tk.Button(window, text="Generar Inventario", command=run_inventario).pack(pady=20)
 
