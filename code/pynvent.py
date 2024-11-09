@@ -60,7 +60,7 @@ def check_and_install_packages():
             print(f"Instalando {package}...")
             subprocess.check_call([sys.executable, "-m", "pip", "install", package])
 
-check_and_install_packages()
+# check_and_install_packages()
 
 import re
 import io
@@ -221,6 +221,7 @@ def rename_images_in_folder(folder_path):
 def crear_inventario(root_folder, output_doc, location, name, dni, ref_expediente, scale_factor = 0.5,
                      rename_images = False, create_doc=False):
     """Crea un documento de inventario con las mejoras solicitadas, según las opciones especificadas."""
+    root_folder = root_folder + "/"
     if rename_images:
         rename_images_in_folder(root_folder)
 
@@ -267,7 +268,7 @@ def crear_inventario(root_folder, output_doc, location, name, dni, ref_expedient
         doc.add_paragraph("Daños estructura", style='Heading 1').runs[0].font.bold = True
         toc_data.append(("Daños estructura", page_counter, "section"))
         
-        doc.save(f"../documentos/{output_doc}.docx")
+        doc.save(f"documentos/{output_doc}.docx")
         print(f"Documento de inventario guardado en: pynventario/documentos/{output_doc}.docx")
 
         # Generar archivo Excel de la tabla de contenidos
@@ -286,7 +287,7 @@ def generate_excel_toc(toc_data, output_xlsx):
         if entry_type == "section":
             ws[f"A{ws.max_row}"].font = ws[f"A{ws.max_row}"].font.copy(bold=True)
 
-    wb.save(f"../documentos/{output_xlsx}.xlsx")
+    wb.save(f"documentos/{output_xlsx}.xlsx")
     print(f"Tabla de contenidos guardada en: pynventario/documentos/{output_xlsx}.xlsx")
 
 if __name__ == "__main__":
