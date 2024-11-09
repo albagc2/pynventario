@@ -155,7 +155,7 @@ def add_images_to_doc(doc, folder_path, toc_data, base_depth, page_counter, page
             toc_data.append((clean_name, len(doc.paragraphs) + 1, "image"))  # Sección, página, precio placeholder
 
             # Añadir el nombre de la imagen como un subtítulo (Heading, ajustado al nivel de la carpeta)
-            para = doc.add_paragraph(clean_name, style=f'Heading {base_depth + 2}')  # Ajuste dinámico del nivel
+            para = doc.add_paragraph(clean_name, style=f'Heading {base_depth + 1}')  # Ajuste dinámico del nivel
             for run in para.runs:
                 run.font.bold = False
                 run.font.italic = False
@@ -249,8 +249,10 @@ def crear_inventario(root_folder, output_doc, location, name, dni, ref_expedient
             if files:
                 folder_name = os.path.basename(root)
                 # Calcular el nivel de encabezado basado en la profundidad de la carpeta
-                current_depth = root.count(os.path.sep) - base_depth + 1
+                # Limitar el nivel de encabezado entre 1 y 3 para evitar errores
+                current_depth = min(root.count(os.path.sep) - base_depth + 1, 4)
                 folder_para = doc.add_paragraph(folder_name, style=f'Heading {current_depth}')
+
                 folder_para.runs[0].font.bold = True
                 toc_data.append((folder_name, page_counter, "section"))
                 page_counter += 1

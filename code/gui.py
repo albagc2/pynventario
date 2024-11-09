@@ -22,6 +22,10 @@ def run_inventario():
             create_doc=True
         )
         messagebox.showinfo("Éxito", "Inventario generado exitosamente.")
+        window.destroy()  # Cierra la ventana principal
+    except Exception as e:
+        messagebox.showerror("Error", f"Ha ocurrido un error: {e}")
+
     except Exception as e:
         messagebox.showerror("Error", f"Ha ocurrido un error: {e}")
 
