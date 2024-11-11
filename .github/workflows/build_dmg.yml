@@ -34,7 +34,7 @@ jobs:
 
       - name: Build .app package with py2app
         run: |
-          python setup.py py2app
+          python setup.py py2app --force
 
       - name: Create DMG
         run: |
