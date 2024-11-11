@@ -19,7 +19,8 @@ def run_inventario():
             ref_expediente=ref_expediente.get(),
             scale_factor=0.5,
             rename_images=rename_images.get(),
-            create_doc=True
+            create_doc=True,
+            add_images=add_images.get() 
         )
         messagebox.showinfo("Éxito", "Inventario generado exitosamente.\nGuardado en pynventario/documentos.")
         window.destroy()  # Cierra la ventana principal
@@ -37,6 +38,7 @@ window.geometry("400x500")
 # Variables para almacenar los datos
 root_folder = tk.StringVar()
 output_doc = tk.StringVar()
+add_images = tk.BooleanVar()
 location = tk.StringVar()
 name = tk.StringVar()
 dni = tk.StringVar()
@@ -50,6 +52,8 @@ tk.Button(window, text="Seleccionar carpeta", command=lambda: root_folder.set(fi
 
 tk.Label(window, text="Nombre del archivo con el inventario (.docx guardado en documentos/):").pack(pady=5)
 tk.Entry(window, textvariable=output_doc, width=40).pack()
+
+tk.Checkbutton(window, text="Añadir imágenes directamente al documento", variable=add_images).pack(pady=5)
 
 tk.Label(window, text="Localidad:").pack(pady=5)
 tk.Entry(window, textvariable=location, width=40).pack()
