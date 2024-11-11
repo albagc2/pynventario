@@ -37,7 +37,7 @@ jobs:
           hdiutil create -volname "MyApp" -srcfolder code/dist/dmg -ov -format UDZO "code/dist/mi_inventario.dmg"
 
       - name: Upload DMG artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: mi_inventario.dmg
           path: code/dist/mi_inventario.dmg
