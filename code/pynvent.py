@@ -192,7 +192,7 @@ def add_images_to_doc(doc, folder_path, toc_data, base_depth, page_counter, page
                 else:
                     # Simplemente escribe el nombre si no es una imagen
                     doc.add_paragraph(f"Archivo: {clean_name}")
-                    
+
                 # Incrementar el contador de páginas después de cada imagen y añadir salto de página
                 page_counter += 1
                 doc.add_paragraph().add_run().add_break()
@@ -228,7 +228,7 @@ def rename_images_in_folder(folder_path):
                     print(f"{filename} renombrado a {new_filename}")
 
 def crear_inventario(root_folder, output_doc, location, name, dni, ref_expediente, scale_factor = 0.5,
-                     rename_images = False, create_doc=False):
+                     rename_images = False, create_doc=False, add_images = True):
     """Crea un documento de inventario con las mejoras solicitadas, según las opciones especificadas."""
     root_folder = root_folder + "/"
     if rename_images:
@@ -266,7 +266,8 @@ def crear_inventario(root_folder, output_doc, location, name, dni, ref_expedient
                 folder_para.runs[0].font.bold = True
                 toc_data.append((folder_name, page_counter, "section"))
                 page_counter += 1
-                add_images_to_doc(doc, root, toc_data, current_depth, page_counter, scale_factor = scale_factor)
+                add_images_to_doc(doc, root, toc_data, current_depth, page_counter, scale_factor = scale_factor, 
+                                  add_images = add_images)
 
         # Agregar tabla de contenidos después del encabezado
         #add_table_of_contents(doc, toc_data)
