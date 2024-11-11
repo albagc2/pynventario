@@ -14,7 +14,7 @@ setup(
     options={'py2app': OPTIONS},
     setup_requires=['py2app'],
     install_requires=['pillow',
-        'poenpyxl'
+        'openpyxl'
         # otras dependencias aquí...
     ],
 )
