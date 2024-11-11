@@ -23,7 +23,11 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r code/requirements.txt
+          if [[ "$RUNNER_OS" == "Windows" ]]; then
+            python -m pip install -r requirements-win.txt
+          else
+            python -m pip install -r requirements-macos.txt
+          fi
           pip install py2app
 
       - name: Build .app package with py2app
