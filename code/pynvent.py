@@ -145,11 +145,12 @@ def add_table_of_contents(doc):
     paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER  # Centramos la ToC
 
 
-def add_images_to_doc(doc, folder_path, toc_data, base_depth, page_counter, page_width_inches=8.27, margin_inches=1.0, scale_factor=0.5):
+def add_images_to_doc(doc, folder_path, toc_data, base_depth, page_counter, page_width_inches=8.27, margin_inches=1.0, 
+                      scale_factor=0.5, add_images = True):
     """Agrega las imágenes de una carpeta al documento y genera datos para la tabla de contenidos."""
     max_image_width = (page_width_inches - 2 * margin_inches) * scale_factor * 96
 
-    for filename in os.listdir(folder_path):
+    for filename in sorted(os.listdir(folder_path)):
         if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.gif', '.jfif')):
             clean_name = clean_filename(filename)
             toc_data.append((clean_name, len(doc.paragraphs) + 1, "image"))  # Sección, página, precio placeholder
@@ -161,32 +162,40 @@ def add_images_to_doc(doc, folder_path, toc_data, base_depth, page_counter, page
                 run.font.italic = False
                 run.font.color.rgb = RGBColor(0, 0, 0)  # Establecer color negro
             
-            image = Image.open(os.path.join(folder_path, filename))
+            # Comprobar si es imagen
+            if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.gif', '.jfif')):
+                if add_images:
+                    try:
+                        image = Image.open(os.path.join(folder_path, filename))
 
-             # Convertir a modo RGB si tiene un canal alfa
-            if image.mode in ('RGBA', 'P'):
-                image = image.convert('RGB')
+                        # Convertir a modo RGB si tiene un canal alfa
+                        if image.mode in ('RGBA', 'P'):
+                            image = image.convert('RGB')
 
-            width, height = image.size
-            aspect_ratio = height / width
+                        width, height = image.size
+                        aspect_ratio = height / width
 
-            # Ajustar el tamaño manteniendo la proporción
-            new_width = int(min(max_image_width, width))  # Asegura que no agrandamos la imagen original
-            new_height = int(new_width * aspect_ratio)
-            image = image.resize((new_width, new_height), Image.LANCZOS)
+                        # Ajustar el tamaño manteniendo la proporción
+                        new_width = int(min(max_image_width, width))  # Asegura que no agrandamos la imagen original
+                        new_height = int(new_width * aspect_ratio)
+                        image = image.resize((new_width, new_height), Image.LANCZOS)
 
-            temp_image_path = "temp_resized_image.jpg"
-            image.save(temp_image_path, format = "JPEG", quality=95)
+                        temp_image_path = "temp_resized_image.jpg"
+                        image.save(temp_image_path, format = "JPEG", quality=95)
 
-           
-            
-            # Insertar la imagen en el documento
-            doc.add_picture(temp_image_path, width=Inches(new_width / 96))
-            os.remove(temp_image_path)
-            
-            # Incrementar el contador de páginas después de cada imagen y añadir salto de página
-            page_counter += 1
-            doc.add_paragraph().add_run().add_break()
+                        # Insertar la imagen en el documento
+                        doc.add_picture(temp_image_path, width=Inches(new_width / 96))
+                        os.remove(temp_image_path)
+                        
+                    except Exception as e:
+                        print(f"No se pudo agregar la imagen para {filename}: {e}")
+                else:
+                    # Simplemente escribe el nombre si no es una imagen
+                    doc.add_paragraph(f"Archivo: {clean_name}")
+                    
+                # Incrementar el contador de páginas después de cada imagen y añadir salto de página
+                page_counter += 1
+                doc.add_paragraph().add_run().add_break()
 
     return page_counter
     
