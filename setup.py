@@ -4,7 +4,7 @@ APP = ['code/gui.py']  # Cambia a tu archivo principal
 DATA_FILES = []
 OPTIONS = {
     'argv_emulation': True,
-    'packages': ['pillow', 'openpyxl'],  # Solo los módulos necesarios
+    'packages': ['PIL', 'openpyxl'],  # Solo los módulos necesarios
     'includes': ['tkinter']  # Incluye tkinter si usas una GUI
 }
 
