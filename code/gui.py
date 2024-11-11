@@ -18,7 +18,6 @@ def run_inventario():
             dni=dni.get(),
             ref_expediente=ref_expediente.get(),
             scale_factor=0.5,
-            rename_images=rename_images.get(),
             create_doc=True,
             add_images=add_images.get() 
         )
@@ -43,7 +42,6 @@ location = tk.StringVar()
 name = tk.StringVar()
 dni = tk.StringVar()
 ref_expediente = tk.StringVar()
-rename_images = tk.BooleanVar()
 
 # Crear los campos de entrada y botones
 tk.Label(window, text="Carpeta con las imágenes:").pack(pady=5)

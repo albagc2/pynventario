@@ -52,7 +52,7 @@ import sys
 
 # Verificar e instalar paquetes
 def check_and_install_packages():
-    required_packages = ["python-docx", "pillow", "google-cloud-vision", "openpyxl"]
+    required_packages = ["python-docx", "pillow", "openpyxl"]
     for package in required_packages:
         try:
             __import__(package if package != "python-docx" else "docx")
@@ -71,7 +71,6 @@ from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
 from openpyxl import Workbook
 from PIL import Image
-from google.cloud import vision
 
 
 def clean_filename(filename):
@@ -191,48 +190,19 @@ def add_images_to_doc(doc, folder_path, toc_data, base_depth, page_counter, page
                         print(f"No se pudo agregar la imagen para {filename}: {e}")
                 else:
                     # Simplemente escribe el nombre si no es una imagen
-                    doc.add_paragraph(f"Archivo: {clean_name}")
+                    doc.add_paragraph(f"Ver archivo: {filename}")
 
                 # Incrementar el contador de páginas después de cada imagen y añadir salto de página
                 page_counter += 1
                 doc.add_paragraph().add_run().add_break()
 
     return page_counter
-    
-def label_image(image_path):
-    """Usa Google Vision para obtener etiquetas de una imagen."""
-    client = vision.ImageAnnotatorClient()
-    with io.open(image_path, 'rb') as image_file:
-        content = image_file.read()
 
-    image = vision.Image(content=content)
-    response = client.label_detection(image=image)
-    labels = response.label_annotations
-
-    if labels:
-        return labels[0].description
-    return None
-
-def rename_images_in_folder(folder_path):
-    """Renombra las imágenes en la carpeta usando etiquetas de Google Vision."""
-    for root, dirs, files in os.walk(folder_path):
-        for filename in files:
-            if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.gif', '.jfif')):
-                image_path = os.path.join(root, filename)
-                label = label_image(image_path)
-                
-                if label:
-                    new_filename = f"{label}_{filename}"
-                    new_image_path = os.path.join(root, new_filename)
-                    os.rename(image_path, new_image_path)
-                    print(f"{filename} renombrado a {new_filename}")
 
 def crear_inventario(root_folder, output_doc, location, name, dni, ref_expediente, scale_factor = 0.5,
-                     rename_images = False, create_doc=False, add_images = True):
+                     create_doc=False, add_images = True):
     """Crea un documento de inventario con las mejoras solicitadas, según las opciones especificadas."""
     root_folder = root_folder + "/"
-    if rename_images:
-        rename_images_in_folder(root_folder)
 
     if create_doc:
         doc = Document()
@@ -240,7 +210,7 @@ def crear_inventario(root_folder, output_doc, location, name, dni, ref_expedient
         add_page_numbers(doc)
         
         # Insertar la tabla de contenidos al inicio
-        add_table_of_contents(doc)
+        #add_table_of_contents(doc)
 
         # Inicializar datos para la tabla de contenidos
         toc_data = []
@@ -250,7 +220,7 @@ def crear_inventario(root_folder, output_doc, location, name, dni, ref_expedient
         base_depth = root_folder.rstrip(os.path.sep).count(os.path.sep)
 
         # Agregar tabla de contenidos vacía (se llenará después)
-        toc_start_paragraph = doc.add_paragraph("Tabla de Contenidos")
+        toc_start_paragraph = doc.add_paragraph("Tabla de Contenidos\n(En la cinta superior de Microsoft Word ve a Referencias > Tabla de Contenido)")
         toc_start_paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.LEFT
         toc_start_index = len(doc.paragraphs)
 
@@ -311,7 +281,7 @@ if __name__ == "__main__":
     parser.add_argument("dni", type=str, help="DNI de la persona.")
     parser.add_argument("ref_expediente", type=str, help="Referencia del expediente.")
     parser.add_argument("scale_factor", type=float, help="Fracción del ancho de página para la foto (p.ej: 0.5 es la mitad del ancho).")
-    parser.add_argument("--rename_images", action="store_true", help="Renombra las imágenes usando Google Vision.")
+    parser.add_argument("--add_images", action="store_true", help="Incluir las imágenes directamente en el documento.")
     parser.add_argument("--create_doc", action="store_true", help="Genera el documento de inventario.")
 
     args = parser.parse_args()
@@ -325,5 +295,6 @@ if __name__ == "__main__":
         ref_expediente=args.ref_expediente,
         rename_images=args.rename_images,
         create_doc=args.create_doc,
-        scale_factor = scale_factor
+        scale_factor = args.scale_factor,
+        add_images= args.add_images,
     )
