@@ -3,10 +3,10 @@ name: Build macOS DMG
 on:
   push:
     branches:
-      - master
+      - mi-inv-lite
   pull_request:
     branches:
-      - master
+      - mi-inv-lite
 
 jobs:
   build-dmg:
