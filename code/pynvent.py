@@ -233,7 +233,8 @@ def crear_inventario(root_folder, output_doc, location, name, dni, ref_expedient
                 # Limitar el nivel de encabezado entre 1 y 3 para evitar errores
                 current_depth = min(root.count(os.path.sep) - base_depth + 1, 4)
                 folder_para = doc.add_paragraph(folder_name, style=f'Heading {current_depth}')
-
+                if not folder_para.runs:
+                    folder_para.add_run() 
                 folder_para.runs[0].font.bold = True
                 toc_data.append((folder_name, page_counter, "section"))
                 page_counter += 1
