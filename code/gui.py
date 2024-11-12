@@ -1,8 +1,13 @@
 import tkinter as tk
+import logging
 import traceback
-import sys
 from tkinter import filedialog, messagebox
 from pynvent import crear_inventario  
+
+
+# Configurar el registro
+logging.basicConfig(filename="app_log.txt", level=logging.ERROR, 
+                    format="%(asctime)s - %(levelname)s - %(message)s")
 
 def run_inventario():
     # Validar que todos los campos estén completos
@@ -26,13 +31,8 @@ def run_inventario():
         messagebox.showinfo("Éxito", "Inventario generado exitosamente.\nGuardado en pynventario/documentos.")
         window.destroy()  # Cierra la ventana principal
     except Exception as e:
-        messagebox.showerror("Error", f"Ha ocurrido un error: {e}")
-        with open("error_log.txt", "w") as log_file:
-            log_file.write("Ocurrió un error:\n")
-            log_file.write(str(e) + "\n")
-            log_file.write(traceback.format_exc())
-        print("Ocurrió un error. Consulta 'error_log.txt' para más detalles.")
-        sys.exit(1)
+        logging.error("Ocurrió un error", exc_info=True)
+        messagebox.showerror("Ocurrió un error. Consulta 'app_log.txt' para más detalles.")
 
 # Configurar la ventana principal
 window = tk.Tk()
