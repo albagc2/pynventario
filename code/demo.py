@@ -24,8 +24,8 @@ pynvent.crear_inventario(
     create_doc=True,
     name=name,
     dni=dni,
-    ref_expediente=ref_expediente
-
+    ref_expediente=ref_expediente,
+    add_images=True
 )
 
 

@@ -184,6 +184,7 @@ def add_images_to_doc(doc, folder_path, toc_data, base_depth, page_counter, page
 
                         # Insertar la imagen en el documento
                         doc.add_picture(temp_image_path, width=Inches(new_width / 96))
+                        doc.add_paragraph(f"Ver archivo: {filename}")
                         os.remove(temp_image_path)
                         
                     except Exception as e:

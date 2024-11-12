@@ -1,4 +1,6 @@
 import tkinter as tk
+import traceback
+import sys
 from tkinter import filedialog, messagebox
 from pynvent import crear_inventario  
 
@@ -25,9 +27,12 @@ def run_inventario():
         window.destroy()  # Cierra la ventana principal
     except Exception as e:
         messagebox.showerror("Error", f"Ha ocurrido un error: {e}")
-
-    except Exception as e:
-        messagebox.showerror("Error", f"Ha ocurrido un error: {e}")
+        with open("error_log.txt", "w") as log_file:
+            log_file.write("Ocurrió un error:\n")
+            log_file.write(str(e) + "\n")
+            log_file.write(traceback.format_exc())
+        print("Ocurrió un error. Consulta 'error_log.txt' para más detalles.")
+        sys.exit(1)
 
 # Configurar la ventana principal
 window = tk.Tk()
