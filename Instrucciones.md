@@ -33,7 +33,6 @@ Rellena los siguientes campos en la interfaz:
 
 ### 4. Opciones adicionales
 
-- Marca la casilla **"Renombrar imágenes usando Google Vision"** si deseas que las imágenes sean renombradas automáticamente con etiquetas basadas en su contenido (esta función requiere conexión a Internet y puede generar costos).
 - Marca la casilla **"Añadir imágenes directamente al documento"** si deseas incluir las imágenes dentro del archivo de inventario generado.
 
 ### 5. Genera el inventario
@@ -52,7 +51,8 @@ Rellena los siguientes campos en la interfaz:
 - **Error al seleccionar carpeta:** Asegúrate de que la carpeta contiene imágenes en formatos compatibles, como `.jpg`, `.png` o `.jpeg`.
 - **No se generan las imágenes:** Verifica que la opción **"Añadir imágenes directamente al documento"** esté marcada si deseas incluir imágenes en el inventario.
 
-Si tienes algún problema o duda, consulta al soporte técnico o revisa la documentación adicional proporcionada.
+Si tienes algún problema o duda, puedes dejar un Issue o escribirme :).
+Buena suerte! <3
 
 ## Implementación para macOS
 
