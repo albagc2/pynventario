@@ -31,6 +31,10 @@ jobs:
             python -m pip install -r code/requirements-macos.txt
           fi
           pip install py2app
+        
+      - name: Clean previous builds
+        run: |
+          rm -rf build dist
 
       - name: Build .app package with py2app
         run: |
