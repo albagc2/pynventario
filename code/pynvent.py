@@ -71,6 +71,11 @@ from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
 from openpyxl import Workbook
 from PIL import Image
+from pillow_heif import register_heif_opener
+
+# Registrar el soporte para imágenes HEIC
+register_heif_opener()
+
 
 
 def clean_filename(filename):
@@ -167,9 +172,6 @@ def add_images_to_doc(doc, folder_path, toc_data, base_depth, page_counter, page
                     try:
                         image = Image.open(os.path.join(folder_path, filename))
 
-                        width, height = image.size
-                        if width > height:
-                            image = image.rotate(90, expand=True)  # Rota la imagen 90 grados
                         # Convertir a modo RGB si tiene un canal alfa
                         if image.mode in ('RGBA', 'P'):
                             image = image.convert('RGB')
@@ -183,7 +185,11 @@ def add_images_to_doc(doc, folder_path, toc_data, base_depth, page_counter, page
                         image = image.resize((new_width, new_height), Image.LANCZOS)
 
                         temp_image_path = "temp_resized_image.jpg"
-                        image.save(temp_image_path, format = "JPEG", quality=95)
+                        width, height = image.size
+                        if width > height:
+                            # Rota la imagen 90 grados si está en modo apaisado
+                            image = image.rotate(-90, expand=True)  
+                        image.save(temp_image_path, format="JPEG", quality=95)  # Guarda la imagen ajustada
 
                         # Insertar la imagen en el documento
                         doc.add_picture(temp_image_path, width=Inches(new_width / 96))
