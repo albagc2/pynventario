@@ -3,10 +3,10 @@ name: Build macOS DMG
 on:
   push:
     branches:
-      - mi-inv-vlite
+      - mi-inv-vlite-mac
   pull_request:
     branches:
-      - mi-inv-vlite
+      - mi-inv-vlite-mac
   workflow_dispatch:
       
 
