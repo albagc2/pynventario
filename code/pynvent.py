@@ -150,7 +150,7 @@ def add_images_to_doc(doc, folder_path, toc_data, base_depth, page_counter, page
     max_image_width = (page_width_inches - 2 * margin_inches) * scale_factor * 96
 
     for filename in sorted(os.listdir(folder_path)):
-        if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.gif', '.jfif')):
+        if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.gif', '.jfif', '.heic')):
             clean_name = clean_filename(filename)
             toc_data.append((clean_name, len(doc.paragraphs) + 1, "image"))  # Sección, página, precio placeholder
 
@@ -162,11 +162,14 @@ def add_images_to_doc(doc, folder_path, toc_data, base_depth, page_counter, page
                 run.font.color.rgb = RGBColor(0, 0, 0)  # Establecer color negro
             
             # Comprobar si es imagen
-            if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.gif', '.jfif')):
+            if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.gif', '.jfif', '.heic')):
                 if add_images:
                     try:
                         image = Image.open(os.path.join(folder_path, filename))
 
+                        width, height = image.size
+                        if width > height:
+                            image = image.rotate(90, expand=True)  # Rota la imagen 90 grados
                         # Convertir a modo RGB si tiene un canal alfa
                         if image.mode in ('RGBA', 'P'):
                             image = image.convert('RGB')
