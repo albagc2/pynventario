@@ -1,62 +1,60 @@
-Hola! 
+# 📋 Generador de Inventarios
 
-# Instrucciones para Ejecutar la Aplicación de Inventario (Windows)
+Hola! Este programa te permite convertir carpetas de imágenes en documentos estructurados de inventario en formato Word, ideal para tareas como reclamaciones de seguros, catalogación de objetos, o simplemente para mantener todo organizado.
 
-Esta guía explica cómo utilizar la aplicación gráfica para generar un documento de inventario, incluso si no tienes experiencia previa con programación. Sigue estos pasos y estarás listo para usar la herramienta:
+### 🚀 Funcionalidades principales
 
-## Requisitos previos
+- **Jerarquía respetada**: Genera un documento que refleja la estructura de carpetas y subcarpetas de tus imágenes.
+- **Imágenes directamente en el documento**: Incluye las imágenes dentro del archivo Word, redimensionadas automáticamente para ajustarse al diseño.
+- **Soporte HEIC**: Procesa imágenes en formato HEIC (usado frecuentemente por dispositivos Apple) gracias a la integración con `pillow-heif`.
+- **Exportación de tabla de contenidos**: Genera un archivo Excel con un índice de todos los elementos incluidos en el inventario.
+- **Interfaz gráfica amigable**: Diseñada para usuarios sin experiencia en programación.
 
-- **Un ordenador con Windows**.
-- **El archivo ejecutable** (`mi inventario.exe`).
-- Una carpeta que contenga las imágenes o archivos que deseas incluir en el inventario.
+---
 
-## Instrucciones de uso
+### 💻 Cómo usar el programa en Windows
 
-### 1. Descarga y abre la aplicación
+1. **Descarga y ejecuta el archivo `mi inventario.exe`**:
+   - Abre la interfaz gráfica desde el archivo ejecutable `mi inventario.exe`.
 
-1. Busca el archivo `mi inventario.exe` en la carpeta proporcionada.
-2. Haz doble clic en el archivo `mi inventario.exe` para abrir la aplicación.
+2. **Selecciona la carpeta de imágenes**:
+   - Usa el botón **"Seleccionar carpeta"** para elegir dónde están las imágenes y carpetas que deseas procesar.
 
-### 2. Selecciona la carpeta de imágenes
+3. **Completa los datos necesarios**:
+   - Ingresa información como:
+     - Nombre del archivo de inventario
+     - Localidad
+     - Nombre y DNI de la persona
+     - Referencia del expediente
 
-1. Haz clic en el botón **"Seleccionar carpeta"**.
-2. Navega a la carpeta que contiene las imágenes o archivos que deseas incluir en el inventario.
-3. Haz clic en **"Abrir"**.
+4. **Opciones adicionales**:
+   - Marca la casilla **"Añadir imágenes directamente al documento"** si quieres que las fotos aparezcan en el documento.
 
-### 3. Completa los campos requeridos
+5. **Genera tu inventario**:
+   - Haz clic en **"Generar Inventario"** y espera unos momentos.
 
-Rellena los siguientes campos en la interfaz:
+6. **Resultados**:
+   - El archivo generado estará en la carpeta `documentos/` dentro de la misma carpeta donde tienes el programa.
 
-- **Nombre del archivo de salida**: Escribe el nombre que deseas para el documento de inventario (por ejemplo, `Inventario_Vivienda`).
-- **Ubicación**: Indica la ubicación (por ejemplo, `Valencia`).
-- **Nombre**: Escribe el nombre de la persona responsable del inventario.
-- **DNI**: Introduce el número de identificación de la persona.
-- **Referencia de expediente**: Añade la referencia o código del expediente (si aplica).
+---
 
-### 4. Opciones adicionales
+### ⚙️ Requisitos
 
-- Marca la casilla **"Añadir imágenes directamente al documento"** si deseas incluir las imágenes dentro del archivo de inventario generado.
+- **Sistema operativo**: Windows
+- **Formato de entrada**: Imágenes en `.jpg`, `.png`, `.bmp`, `.gif`, `.jfif`, y `.heic`.
 
-### 5. Genera el inventario
+> **Nota**: La implementación para macOS está en camino. 😊
 
-1. Haz clic en el botón **"Generar Inventario"**.
-2. Espera unos momentos mientras se genera el documento.
+---
 
-### 6. Verifica el documento generado
+### 🛠️ Solución de problemas
 
-- Una vez que el proceso termine, aparecerá un mensaje confirmando que el inventario ha sido creado con éxito.
-- El archivo generado estará disponible en la misma carpeta donde se encuentra la aplicación o en la ubicación predeterminada configurada.
+- **¿El programa no abre?** Asegúrate de ejecutar `mi inventario.exe` en un ordenador con Windows y de tener permisos suficientes.
+- **¿Errores con imágenes?** Consulta el archivo `app_log.txt` que se genera automáticamente para depurar problemas.
+- **¿Formato HEIC no soportado?** Este soporte está incluido de forma predeterminada, pero asegúrate de que los archivos no estén corruptos.
 
-## Solución de problemas
+---
 
-- **La aplicación no abre:** Asegúrate de tener los permisos necesarios para ejecutar aplicaciones externas en tu ordenador.
-- **Error al seleccionar carpeta:** Asegúrate de que la carpeta contiene imágenes en formatos compatibles, como `.jpg`, `.png` o `.jpeg`.
-- **No se generan las imágenes:** Verifica que la opción **"Añadir imágenes directamente al documento"** esté marcada si deseas incluir imágenes en el inventario.
+Espero que este programa haga tu trabajo más fácil y organizado. Soy consciente de que este programa tiene muchas limitaciones, y no dudo en que habrá muchas cosas que mejorar, así que no dudes en reportar cualquier sugerencia o problema en la página de Issues del repositorio!
 
-Si tienes algún problema o duda, puedes dejar un Issue o escribirme :).
-Buena suerte! <3
-
-## Implementación para macOS
-
-Actualmente, la implementación de esta aplicación para macOS está en desarrollo y estará disponible próximamente. Mantente atento a las actualizaciones.
-
+Ojalá que os sirva. Mucho ánimo :heartbeat: 
